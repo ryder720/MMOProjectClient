@@ -62,6 +62,11 @@ public class CameraController : MonoBehaviour
         // If either mouse buttons are down, let the mouse govern camera position
         if (GUIUtility.hotControl == 0)
         {
+            if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+            }
             if (Input.GetMouseButton(1))
             {
                 target.rotation = Quaternion.Euler(0, xDeg, 0);
@@ -75,15 +80,11 @@ public class CameraController : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Confined;
                 Cursor.visible = false;
             }
-            if (!Input.GetMouseButton(0) && !Input.GetMouseButton(1))
-            {
-                Cursor.lockState = CursorLockMode.None;
-                Cursor.visible = true;
-            }
+            
 
 
             // otherwise, ease behind the target if any of the directional keys are pressed
-                    else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
+            else if (Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0)
             {
                 float targetRotationAngle = target.eulerAngles.y;
                 float currentRotationAngle = transform.eulerAngles.y;
