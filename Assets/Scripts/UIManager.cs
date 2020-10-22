@@ -11,6 +11,8 @@ public class UIManager : MonoBehaviour
     public GameObject startMenu;
     public GameObject playerUI;
     public TMP_InputField usernameField;
+    
+    
 
     private void Awake()
     {
@@ -21,7 +23,11 @@ public class UIManager : MonoBehaviour
             Debug.Log("Instance already exists, destroying");
             Destroy(this);
         }
+
+        
     }
+
+    
 
     public void ConnectToServer()
     {
@@ -33,5 +39,20 @@ public class UIManager : MonoBehaviour
         usernameField.interactable = false;
         Client.instance.ConnectToServer();
         playerUI.SetActive(true);
+    }
+
+    public void UpdateNameplates() // I suck at ui and know this sucks
+    {
+        for (int i = 1; i <= GameManager.players.Count; i++)
+        {
+            GameManager.players[i].nameTag.text = GameManager.players[i].username;
+            
+        }
+
+        for (int i = 1; i <= GameManager.actors.Count; i++)
+        {
+            GameManager.actors[i].nameTag.text = GameManager.actors[i].actorName;
+            
+        }
     }
 }

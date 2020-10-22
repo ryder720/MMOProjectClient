@@ -270,7 +270,8 @@ public class Client : MonoBehaviour
             { (int)ServerPackets.playerRotation, ClientHandle.PlayerRotation},
             { (int)ServerPackets.playerDisconnected, ClientHandle.PlayerDisconnected},
             { (int)ServerPackets.spawnActor,ClientHandle.SpawnActor },
-            { (int)ServerPackets.chatUpdate, ClientHandle.ChatMessage }
+            { (int)ServerPackets.chatUpdate, ClientHandle.ChatMessage },
+            { (int)ServerPackets.chatTell, ClientHandle.TellMessage }
         };
         Debug.Log("Initialized packets");
     }

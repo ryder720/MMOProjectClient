@@ -15,7 +15,8 @@ public enum ServerPackets
     spawnActor,
     actorPosition,
     actorRotation,
-    chatUpdate
+    chatUpdate,
+    chatTell
 }
 
 /// <summary>Sent from client to server.</summary>

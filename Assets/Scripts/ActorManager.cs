@@ -6,6 +6,12 @@ public class ActorManager : MonoBehaviour
 {
     public int id;
     public string actorName;
-    public TargetableTag target; // Change this to a targetable script or something woot
+    public TargetableTag target; 
+    public TextMesh nameTag;
+
+    private void Start()
+    {
+        nameTag = GetComponentInChildren<TextMesh>();
+    }
 
 }

@@ -36,8 +36,13 @@ public class ChatManager : MonoBehaviour
 
         if (_id == 0) // Message from server
         {
-
             
+            _newMessage.text = _text;
+            _newMessage.textObject = Instantiate(playerTextObject, chatPanel.transform);
+
+            _newMessage.textObject.GetComponentInChildren<Text>().text = "Server: ";
+            _newMessage.textObject.GetComponentInChildren<TMP_Text>().text = _text;
+
         }
         else // Message from player
         {
@@ -49,6 +54,42 @@ public class ChatManager : MonoBehaviour
             _newMessage.textObject.GetComponentInChildren<TMP_Text>().text = _text;
         }
         
+
+        chatLog.Add(_newMessage);
+    }
+    public void SendTellToChat(int _id, string _text)
+    {
+        if (chatLog.Count >= maxMessages)
+        {
+            Destroy(chatLog[0].textObject.gameObject);
+            chatLog.Remove(chatLog[0]);
+        }
+
+        Message _newMessage = new Message();
+
+        if (_id == 0) // Message from server
+        {
+            _newMessage.text = "<color = purple>";
+            _newMessage.text += _text;
+            _newMessage.text += "<color>";
+            _newMessage.textObject = Instantiate(playerTextObject, chatPanel.transform);
+
+            _newMessage.textObject.GetComponentInChildren<Text>().text = "Server: ";
+            _newMessage.textObject.GetComponentInChildren<TMP_Text>().text = _text;
+
+        }
+        else // Message from player
+        {
+            _newMessage.playerID = _id;
+            _newMessage.text = "<color = purple>";
+            _newMessage.text += _text;
+            _newMessage.text += "<color>";
+            _newMessage.textObject = Instantiate(playerTextObject, chatPanel.transform);
+
+            _newMessage.textObject.GetComponentInChildren<Text>().text = GameManager.players[_id].username + ":";
+            _newMessage.textObject.GetComponentInChildren<TMP_Text>().text = _text;
+        }
+
 
         chatLog.Add(_newMessage);
     }
@@ -78,7 +119,7 @@ public class ChatManager : MonoBehaviour
     }
 }
 
-public class Message // Can make this so much better maybe later
+public class Message 
 {
     public int playerID;
     public string text;

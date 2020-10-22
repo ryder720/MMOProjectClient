@@ -58,7 +58,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private TargetableTag GetTarget() // finding a target that has a player manager Change to targetable tag later on or change playermanager to actormanager etc
+    private TargetableTag GetTarget() // Finding a target that has a player manager Change to targetable tag later on or change playermanager to actormanager etc
     {
         RaycastHit hit;
         Ray ray = cam.ScreenPointToRay(Input.mousePosition);
@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
                     Debug.Log(this.GetComponentInParent<PlayerManager>().username + " is targetting " + hit.collider.GetComponentInParent<PlayerManager>().username);
                 else
                     Debug.Log(this.GetComponentInParent<PlayerManager>().username + " is targetting " + hit.collider.GetComponentInParent<ActorManager>().actorName);
-                return hit.collider.GetComponentInParent<TargetableTag>();
+                return hit.collider.GetComponentInParent<TargetableTag>(); // need to ask server for stats as well to update target or do it for all of them whenever stats get updated which sounds terrible
             }
             Debug.Log(hit.collider.gameObject.name);
         }

@@ -26,6 +26,7 @@ public class ClientHandle : MonoBehaviour
         Quaternion _rotation = _packet.ReadQuaternion();
 
         GameManager.instance.SpawnPlayer(_id, _username, _position, _rotation);
+        GameManager.gameState = GAME_STATE.IN_GAME;
     }
 
     public static void SpawnActor(Packet _packet)
@@ -84,5 +85,12 @@ public class ClientHandle : MonoBehaviour
         string _msg = _packet.ReadString();
 
         ChatManager.instance.SendMessageToChat(_id, _msg);
+    }
+    public static void TellMessage(Packet _packet)
+    {
+        int _fromID = _packet.ReadInt();
+        string _msg = _packet.ReadString();
+
+        ChatManager.instance.SendTellToChat(_fromID, _msg);
     }
 }

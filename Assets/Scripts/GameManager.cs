@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum GAME_STATE { IN_GAME, MAINMENU}
+public enum PLAYER_STATE { NONE, CHAT_ACTIVE }
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
@@ -10,6 +13,7 @@ public class GameManager : MonoBehaviour
     public static Dictionary<int, ActorManager> actors = new Dictionary<int, ActorManager>();
 
     public static PLAYER_STATE playerState = PLAYER_STATE.NONE;
+    public static GAME_STATE gameState = GAME_STATE.MAINMENU;
 
     public GameObject localPlayerPrefab;
     public GameObject playerPrefab;
@@ -23,6 +27,21 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log("Instance already exists, destroying");
             Destroy(this);
+        }
+    }
+
+    private void Update()
+    {
+        if(gameState == GAME_STATE.MAINMENU)
+        {
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                Application.Quit();
+            }
+        }
+        else if(gameState == GAME_STATE.IN_GAME)
+        {
+            // bring up menu here
         }
     }
 
@@ -40,7 +59,7 @@ public class GameManager : MonoBehaviour
         _player.GetComponent<PlayerManager>().id = _id;
         _player.GetComponent<PlayerManager>().username = _username;
         players.Add(_id, _player.GetComponent<PlayerManager>());
-
+        UIManager.instance.UpdateNameplates();
     }
 
     public void SpawnActor(int _id, string _name, Vector3 _position, Quaternion _rotation)
@@ -51,5 +70,6 @@ public class GameManager : MonoBehaviour
         _actor.GetComponent<ActorManager>().actorName = _name;
 
         actors.Add(_id, _actor.GetComponent<ActorManager>());
+        UIManager.instance.UpdateNameplates();
     }
 }
