@@ -29,10 +29,20 @@ public class UIManager : MonoBehaviour
 
     
 
-    public void ConnectToServer()
+    public void EnterConnectToServer()
     {
         if (!Input.GetKeyDown(KeyCode.Return))
             return;
+        if (string.IsNullOrWhiteSpace(usernameField.text) || usernameField.text == "Username...")
+            return;
+        startMenu.SetActive(false);
+        usernameField.interactable = false;
+        Client.instance.ConnectToServer();
+        playerUI.SetActive(true);
+    }
+    public void ConnectToServer()
+    {
+        
         if (string.IsNullOrWhiteSpace(usernameField.text) || usernameField.text == "Username...")
             return;
         startMenu.SetActive(false);
