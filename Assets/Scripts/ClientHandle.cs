@@ -93,4 +93,17 @@ public class ClientHandle : MonoBehaviour
 
         ChatManager.instance.SendTellToChat(_fromID, _msg);
     }
+    public static void SendInventory(Packet _packet)
+    {
+        List<Vector2> _inventorySlots = new List<Vector2>();
+        int _id = _packet.ReadInt();
+        int _inventoryLength = _packet.ReadInt();
+
+        for (int i = 0; i < _inventoryLength; i++)
+        {
+            _inventorySlots.Add(_packet.ReadVector2());
+        }
+
+        // Handle the inventory here
+    }
 }

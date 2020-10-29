@@ -16,7 +16,8 @@ public enum ServerPackets
     actorPosition,
     actorRotation,
     chatUpdate,
-    chatTell
+    chatTell,
+    sendPlayerInventory
 }
 
 /// <summary>Sent from client to server.</summary>
@@ -25,7 +26,7 @@ public enum ClientPackets
     welcomeReceived = 1,
     playerMovement,
     chatMessage,
-    playerUsedAbility
+    requestInventory
 }
 
 public class Packet : IDisposable
@@ -357,6 +358,10 @@ public class Packet : IDisposable
     public Vector3 ReadVector3(bool _moveReadPos = true)
     {
         return new Vector3(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
+    }
+    public Vector2 ReadVector2(bool _moveReadPos = true)
+    {
+        return new Vector2(ReadFloat(_moveReadPos), ReadFloat(_moveReadPos));
     }
 
     public Quaternion ReadQuaternion(bool _moveReadPos = true)
